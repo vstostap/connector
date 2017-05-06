@@ -6,7 +6,7 @@ Work in progress...
 ### Technologies stack:
 
 - Scala
-- Elm
+- React.js
 - Akka http (REST API)
 - Apache Spark
 - Apache Mesos

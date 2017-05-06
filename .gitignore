@@ -5,3 +5,6 @@ target
 /.classpath
 /.project
 /.settings
+project/project/
+src/main/resources/web/node_modules/
+src/main/resources/web/build/
