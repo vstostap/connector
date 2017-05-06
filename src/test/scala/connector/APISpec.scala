@@ -12,7 +12,7 @@ class APISpec extends FlatSpec with API with Matchers with ScalatestRouteTest {
     "return a title for GET request to the root path" in {
       Get() ~> routes ~> check {
         status shouldBe StatusCodes.OK
-        responseAs[String] must contain("Connector")
+        responseAs[String] should include("Connector")
       }
     }
 }
