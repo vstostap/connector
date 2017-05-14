@@ -21,7 +21,7 @@ import kafka.serializer.DefaultDecoder
   *                   future.
   * @param config Additional consumer configuration settings.
   */
-class KafkaConsumerApp[T](val topic: String,
+class KafkaConsumer[T](val topic: String,
                           val zookeeperConnect: String,
                           val numStreams: Int,
                           config: Properties = new Properties) {

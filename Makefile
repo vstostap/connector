@@ -3,6 +3,9 @@ SBT         := $(shell command -v sbt 2> /dev/null)
 build:
 	@sbt reload clean compile
 
+build-node:
+	@rm -rf ./src/main/resources/web/node_modules && npm i ./src/main/resources/web --prefix ./src/main/resources/web
+
 serve:
 	@sbt run
 

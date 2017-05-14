@@ -17,7 +17,7 @@ import kafka.producer.{KeyedMessage, Producer, ProducerConfig}
   * @param producer An existing [[kafka.producer.Producer]] instance to use for sending data to Kafka.  Primarily used
   *                 for testing.  If `producer` is set, then we ignore the `brokerList` and `producerConfig` parameters.
   */
-case class KafkaProducerApp(brokerList: String,
+case class KafkaProducer(brokerList: String,
                             producerConfig: Properties = new Properties,
                             defaultTopic: Option[String] = None,
                             producer: Option[Producer[Array[Byte], Array[Byte]]] = None) {
@@ -90,17 +90,17 @@ case class KafkaProducerApp(brokerList: String,
   * @param brokerList  Value for Kafka's `metadata.broker.list` setting.
   * @param config Additional producer configuration settings.
   */
-abstract class KafkaProducerAppFactory(brokerList: String, config: Properties, topic: Option[String] = None)
+abstract class KafkaProducerFactory(brokerList: String, config: Properties, topic: Option[String] = None)
   extends Serializable {
 
-  def newInstance(): KafkaProducerApp
+  def newInstance(): KafkaProducer
 }
 
 class BaseKafkaProducerAppFactory(brokerList: String,
                                   config: Properties = new Properties,
                                   defaultTopic: Option[String] = None)
-  extends KafkaProducerAppFactory(brokerList, config, defaultTopic) {
+  extends KafkaProducerFactory(brokerList, config, defaultTopic) {
 
-  override def newInstance() = new KafkaProducerApp(brokerList, config, defaultTopic)
+  override def newInstance() = KafkaProducer(brokerList, config, defaultTopic)
 
 }

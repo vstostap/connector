@@ -6,10 +6,11 @@ Work in progress...
 ### Technologies stack:
 
 - Scala
+- Node.js
 - React.js
 - Akka http (REST API)
+- Express + Sockets.io (Node app)
 - Apache Spark
-- Apache Mesos
 - Apache Kafka
 - Cassandra
 - Specs2
@@ -29,13 +30,22 @@ Compile all dependencies and main sources:
 $ make build
 ```
 
+Install all node dependencies:
+```
+$ make build-node
+```
+
 ### Run
 
-Start the server:
+Start akka http + spark app:
 ```
 $ make serve
 ```
-That's it. Open [http://localhost:9000](http://localhost:9000) at your browser.
+
+Start node web app:
+```
+$ make node
+```
 
 ### Test
 Compiles and runs all tests.

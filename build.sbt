@@ -73,6 +73,6 @@ libraryDependencies ++= {
 libraryDependencies ++= {
   val java_wsV = "1.3.0"
   Seq(
-  "org.java-websocket" % "Java-WebSocket" % java_wsV
+    "org.java-websocket"    % "Java-WebSocket"              % java_wsV
   )
 }
