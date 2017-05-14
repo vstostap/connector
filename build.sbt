@@ -10,10 +10,12 @@ scalacOptions in Test ++= Seq("-Yrangepos")
 
 libraryDependencies ++= {
   val sparkVersion = "2.0.0"
+  val sparkVersionKafka = "1.6.3"
   Seq(
     "org.apache.spark"       %%  "spark-core"                % sparkVersion,
     "org.apache.spark"       %%  "spark-streaming"           % sparkVersion,
-    "org.apache.bahir"       %%  "spark-streaming-twitter"   % sparkVersion
+    "org.apache.bahir"       %%  "spark-streaming-twitter"   % sparkVersion,
+    "org.apache.spark"       %%  "spark-streaming-kafka"     % sparkVersionKafka
   )
 }
 
@@ -42,10 +44,15 @@ libraryDependencies ++= {
 libraryDependencies ++= {
   val kafkaV = "0.8.1"
   Seq(
-    "org.apache.kafka"      % "kafka_2.10"                  % kafkaV
+    "org.apache.kafka"      % "kafka_2.11"                  % kafkaV
       exclude("javax.jms", "jms")
       exclude("com.sun.jdmk", "jmxtools")
-      exclude("com.sun.jmx", "jmxri")
+      exclude("com.sun.jmx", "jmxri"),
+    "com.101tec"            % "zkclient"                    % "0.3"
+      exclude("org.apache.zookeeper", "zookeeper"),
+    "org.apache.curator"    % "curator-test"                % "2.4.0"
+      exclude("org.jboss.netty", "netty")
+      exclude("org.slf4j", "slf4j-log4j12")
   )
 }
 
