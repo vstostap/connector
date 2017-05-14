@@ -4,13 +4,13 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.util.Timeout
 import akka.stream.ActorMaterializer
-import scala.concurrent.duration._
-import scala.util.{ Success, Failure }
 
+import scala.concurrent.duration._
+import scala.util.{Failure, Success}
 import connector.api.API
 
 
-object Boot extends App with API{
+object Boot extends App with API {
 
   implicit val system = ActorSystem(Config.actorSystemName)
   implicit val timeout = Timeout(15.seconds)
@@ -26,5 +26,4 @@ object Boot extends App with API{
       println(s"Binding failed with ${e.getMessage}")
       system.terminate()
   }
-
 }

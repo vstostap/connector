@@ -62,3 +62,10 @@ libraryDependencies ++= {
     "org.specs2"            %% "specs2-core"                % specs2V    % "test"
   )
 }
+
+libraryDependencies ++= {
+  val java_wsV = "1.3.0"
+  Seq(
+  "org.java-websocket" % "Java-WebSocket" % java_wsV
+  )
+}
