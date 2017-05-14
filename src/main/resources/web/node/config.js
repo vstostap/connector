@@ -24,6 +24,9 @@ var index = {
     },
     kafka: {
         client: 'localhost:'+2181,
-        worker: "worker-" + Math.floor(Math.random() * 10000)
+        worker: 'worker-' + Math.floor(Math.random() * 10000),
+        topic: 'connector'
     }
 };
+
+module.exports = index;

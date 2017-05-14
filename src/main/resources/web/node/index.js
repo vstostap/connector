@@ -2,13 +2,12 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var kafka = require('kafka-node');
+var config = require('./config');
 var HighLevelConsumer = kafka.HighLevelConsumer;
 var Offset = kafka.Offset;
 var Client = kafka.Client;
-var topic = 'order-one-min-data';
-var config = './config';
 var client = new Client(config.kafka.client, config.kafka.worker );
-var payloads = [{ topic: topic }];
+var payloads = [{ topic: config.topic }];
 var consumer = new HighLevelConsumer(client, payloads);
 var offset = new Offset(client);
 
