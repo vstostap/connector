@@ -20,6 +20,10 @@ Work in progress...
 
 ### Install
 
+```
+JVM, Scala, node, npm, apache zookeeper, GNU Make have to be installed.
+```
+
 Clone the repo:
 ```
 $ git clone git@github.com:vstostap/connector.git
@@ -33,6 +37,11 @@ $ make build
 Install all node dependencies:
 ```
 $ make build-node
+```
+
+Build clien side with webpack:
+```
+$ make build-webpack
 ```
 
 ### Run

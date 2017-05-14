@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "web app for connector service",
   "scripts": {
-    "build": "webpack ./index.js --config ./build_config/webpack.conf.js",
-    "build-dev": "webpack ./index.js --config ./build_config/webpack.conf.js --watch"
+    "build": "./node_modules/.bin/webpack ./index.js --config ./build_config/webpack.conf.js",
+    "build-dev": "./node_modules/.bin/webpack ./index.js --config ./build_config/webpack.conf.js --watch"
   },
   "dependencies": {
     "babel-core": "^6.13.2",
