@@ -2,18 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-
     <title>Connector</title>
-    <link href="stylesheets/style.css" rel="stylesheet">
-    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="dist/img/favicon.ico"/>
+    <script>
+        var twiSocket = new WebSocket('ws://0.0.0.0:9000/twitter');
+        var twiData = [];
 
+        twiSocket.onmessage = function(event) {
+            console.log(event.data);
+        };
+
+        function start() {
+            var filters = document.getElementById("filters").value;
+            twiSocket.send(filters.toString())
+        }
+
+        function stop() {
+
+        }
+    </script>
 </head>
 <body>
-<div id="root" class="main">
-    <h1>Loading...</h1>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="collapse navbar-collapse js-navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <a class="navbar-brand" href="#">
+                    <img height="20" width="20" src="dist/img/icon.png" class="img-responsive pull-left" alt="Responsive image">
+                     Connector</a>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="base">
+    <div class="form-inline">
+        <div class="form-group col-xs-12">
+            <label for="filters"> Keywords </label>
+            <input class="form-control" id="filters" placeholder="Type your keywords here..." type="text" />
+            <button type="button" class="btn btn-primary" onclick="start()"> Start </button>
+            <button type="button" class="btn btn-danger" onclick="stop()">Stop</button>
+        </div>
+    </div>
+    <div class="charts">
+        <section>
+            <div id="root"></div>
+        </section>
+    </div>
 </div>
 
 
-<script src="build/bundle.js"></script>
+<!-- build:js -->
+<script src="dist/build/bundle.js"></script>
+<!-- endbuild -->
+
 </body>
 </html>

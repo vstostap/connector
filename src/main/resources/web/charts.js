@@ -12,17 +12,18 @@ var Area = React.createClass({
                 backgroundColor2: "#272822",
                 shadowColor: "transparent",
                 lineWidth: 2,
-                text: "Users"
+                text: "Tweets"
             }],
             backgroundColor: '#272822',
             title: {
-                text: "Number of Users (24 Hours)",
+                text: "Number of Tweets (24 Hours)",
                 textAlign: "left",
                 backgroundColor: "transparent",
                 fontFamily: "Roboto",
                 fontSize: "18px",
                 fontWeight: "normal",
-                paddingLeft: "20px"
+                paddingLeft: "20px",
+                color: "#FFFFFF"
             },
             plotarea: {
                 backgroundColor: '#272822',
@@ -101,7 +102,7 @@ var Area = React.createClass({
         return (<Core id={this.props.id} height={this.props.height} width={this.props.width} data={myConfig}/>);
     }
 });
-zingchart.MODULESDIR = "../node_modules/zingchart/client/modules/";
+zingchart.MODULESDIR = "dist/node_modules/zingchart/client/modules/";
 zingchart.loadModules('maps,maps-world-countries');
 var Map = React.createClass({
     render: function() {
@@ -119,7 +120,8 @@ var Map = React.createClass({
                         fontFamily: "Roboto",
                         fontSize: "18px",
                         fontWeight: "normal",
-                        paddingLeft: "20px"
+                        paddingLeft: "50px",
+                        color: "#FFFFFF"
                     },
                     backgroundColor: "#272822",
                     shapes: [{
@@ -205,7 +207,8 @@ var StackedBar = React.createClass({
                 fontFamily: "Roboto",
                 fontSize: "18px",
                 fontWeight: "normal",
-                paddingLeft: "20px"
+                paddingLeft: "20px",
+                color: "#FFFFFF"
             },
             legend: {
                 margin: "88% auto auto auto",

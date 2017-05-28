@@ -17,4 +17,8 @@ object Config {
 
   lazy val cassandraPort = config.getInt("app.database.cassandra.port")
   lazy val cassandraHost = config.getString("app.database.cassandra.host")
+
+  lazy val kafkaTopic = config.getString("app.kafka.topic")
+  lazy val kafkaBrokerHost = config.getString("app.kafka.broker.host")
+  lazy val kafkaBrokerPort =   config.getInt("app.kafka.broker.port")
 }

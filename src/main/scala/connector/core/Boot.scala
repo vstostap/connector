@@ -8,6 +8,7 @@ import akka.stream.ActorMaterializer
 import scala.concurrent.duration._
 import scala.util.{Failure, Success}
 import connector.api.API
+import connector.services._
 
 
 object Boot extends App with API {
@@ -16,6 +17,8 @@ object Boot extends App with API {
   implicit val timeout = Timeout(15.seconds)
   implicit val materializer = ActorMaterializer()
   implicit val executionContext = system.dispatcher
+
+  KafkaZookeeper.startZooKeeperAndKafka(Config.kafkaTopic)
 
   val binding = Http().bindAndHandle(routes, Config.interface, Config.port)
   binding.onComplete {

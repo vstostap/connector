@@ -32,7 +32,6 @@ case class KafkaProducer(brokerList: String,
       val c = new Properties
       c.load(this.getClass.getResourceAsStream("/producer.properties"))
       c.putAll(producerConfig)
-      c.put("metadata.broker.list", brokerList)
       c
     }
     new Producer[Array[Byte], Array[Byte]](new ProducerConfig(effectiveConfig))

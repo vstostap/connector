@@ -2,6 +2,8 @@ package connector.services
 
 import akka.http.scaladsl.model.ws.{Message, TextMessage}
 import akka.stream.scaladsl.Flow
+import connector.core.Config
+import connector.kafka.KafkaProducer
 import connector.models.{Tweet, TweetTest}
 import org.apache.spark.streaming.{Duration, Seconds}
 import org.apache.spark.streaming.twitter._
@@ -32,7 +34,7 @@ object TwitterStreamingService {
 
   loadTwitterKeys()
 
-  /* Create a input stream that returns tweets received from Twitter. */
+  /* Create an input stream that returns tweets received from Twitter. */
   def process(filters: String) = {
 
     val duration: Duration = Seconds(3600)
@@ -40,6 +42,8 @@ object TwitterStreamingService {
     val filtersSeq = filters.split(",")
 
     val ssc = SparkStreamingContextService.configureStreamingContext()
+
+    val producerApp = KafkaProducer(Config.kafkaBrokerHost + Config.kafkaBrokerPort, defaultTopic = Option(Config.kafkaTopic))
 
     val stream = TwitterUtils.createStream(ssc, None, filtersSeq)
 
@@ -54,7 +58,10 @@ object TwitterStreamingService {
     topHashTags.foreachRDD(rdd => {
       val topList = rdd.take(10)
       println("\nPopular topics in last %s seconds (%s total):".format(duration, rdd.count()))
-      topList.foreach{case (count, tag) => TextMessage("ECHO: tag - #" + tag + " count:" + count)}
+      topList.foreach{case (count, tag) =>  producerApp.send(
+        tag.toCharArray.map(_.toByte),
+        count.toString.toCharArray.map(_.toByte),
+        Option(Config.kafkaTopic))}
     })
 
     ssc.start()

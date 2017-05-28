@@ -23,9 +23,9 @@ var index = {
         port: process.env.PORT || 3000
     },
     kafka: {
-        client: 'localhost:'+2181,
+        client: '0.0.0.0:2181',
         worker: 'worker-' + Math.floor(Math.random() * 10000),
-        topic: 'connector'
+        topic: 'connector-kafka'
     }
 };
 
