@@ -13,4 +13,10 @@ object Twitter {
       case _ => TextMessage("Message type unsupported")
     }
   }
+
+  val stopProcess: Flow[Message, Message, _] = {
+    Flow[Message].map {
+       _ => stop
+    }
+  }
 }

@@ -3,7 +3,11 @@
 //Pseudo Live Data Feed
 ////////////////
 module.exports = {
-    country : [['usa', 'can', 'mex','gbr', 'fra', 'rus', 'ind', 'deu', 'jpn', 'rou', 'aus', 'chn'],['arg','bel','bra','can','chi', 'dnk', 'egy', 'fin', 'fra', 'deu','gbr', 'grc', 'hun', 'isl', 'ind', 'irl','isr', 'ita','jpn', 'mex','nzl','nld','nga','pak','per','phl', 'pol', 'prt', 'qat','rou', 'zaf', 'kor','esp', 'swe', 'che', 'twn', 'tha','tur', 'are','usa', 'ven', 'vnm']],
+    country : [
+        ['usa', 'can', 'mex','gbr', 'fra', 'rus', 'ind', 'deu', 'jpn', 'rou', 'aus', 'chn'],
+        ['arg','bel','bra','can','chi', 'dnk', 'egy', 'fin', 'fra', 'deu','gbr', 'grc', 'hun', 'isl', 'ind', 'irl',
+            'isr', 'ita','jpn', 'mex','nzl','nld','nga','pak','per','phl', 'pol', 'prt', 'qat','rou', 'zaf', 'kor',
+            'esp', 'swe', 'che', 'twn', 'tha','tur', 'are','usa', 'ven', 'vnm']],
     resolution : {
         day : 86400000,
         hour : 3600000,

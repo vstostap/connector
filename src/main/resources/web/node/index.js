@@ -13,12 +13,13 @@ var consumer = new HighLevelConsumer(client, payloads);
 var offset = new Offset(client);
 var path = require('path');
 
+
 app.use('/dist', express.static(__dirname + '/../'));
 
 app.get('/', function(req, res){
     res.sendFile(path.resolve(__dirname + '/../index.html'));
 });
-/*
+
 io = io.on('connection', function(socket){
     console.log('a socket connected');
     socket.on('disconnect', function(){
@@ -29,14 +30,30 @@ io = io.on('connection', function(socket){
 consumer = consumer.on('message', function(message) {
     console.log((message.key).toString('utf8'));
     console.log(message.value);
-    //io.emit("message", message);
+
+    const data = {
+        key: (message.key).toString('utf8'),
+        value: message.value
+    };
+
+    if(data.key.includes("#")) {
+        io.emit("distribution", {
+            title: data.key,
+            count: data.value
+        })
+    } else {
+        io.emit("overall", {
+            date: data.key,
+            area: data.value
+        })
+    }
 });
 
 process.on('SIGINT', function() {
     consumer.close(true, function(){
         process.exit();
     })
-}); */
+});
 
 http.listen(config.http.port, function(){
     console.log("Node app running on port " + config.http.port)

@@ -16,13 +16,18 @@ import connector.utils.JsonSupport
 object Twitter extends Directives with JsonSupport {
 
   private val pathName = "twitter"
+  private val stop = "stop"
 
   val routes =
     get {
       pathPrefix(pathName) {
           handleWebSocketMessages(processWithFilters)
         }
+      } ~ get {
+      pathPrefix(stop) {
+        handleWebSocketMessages(stopProcess)
       }
+    }
 }
 
 /*

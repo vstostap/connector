@@ -9,7 +9,7 @@ Work in progress...
 - Node.js
 - React.js
 - Akka http (REST API)
-- Express + Sockets.io (Node app)
+- Express + Socket.io (Node app)
 - Apache Spark
 - Apache Kafka
 - Cassandra

@@ -7,21 +7,7 @@
     <link href="dist/css/style.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="dist/img/favicon.ico"/>
     <script>
-        var twiSocket = new WebSocket('ws://0.0.0.0:9000/twitter');
-        var twiData = [];
 
-        twiSocket.onmessage = function(event) {
-            console.log(event.data);
-        };
-
-        function start() {
-            var filters = document.getElementById("filters").value;
-            twiSocket.send(filters.toString())
-        }
-
-        function stop() {
-
-        }
     </script>
 </head>
 <body>
@@ -38,22 +24,7 @@
     </div>
 </nav>
 
-<div class="base">
-    <div class="form-inline">
-        <div class="form-group col-xs-12">
-            <label for="filters"> Keywords </label>
-            <input class="form-control" id="filters" placeholder="Type your keywords here..." type="text" />
-            <button type="button" class="btn btn-primary" onclick="start()"> Start </button>
-            <button type="button" class="btn btn-danger" onclick="stop()">Stop</button>
-        </div>
-    </div>
-    <div class="charts">
-        <section>
-            <div id="root"></div>
-        </section>
-    </div>
-</div>
-
+<div id="root"></div>
 
 <!-- build:js -->
 <script src="dist/build/bundle.js"></script>

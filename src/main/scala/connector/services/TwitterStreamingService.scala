@@ -1,11 +1,13 @@
 package connector.services
 
+import java.util.Calendar
+
 import akka.http.scaladsl.model.ws.{Message, TextMessage}
 import akka.stream.scaladsl.Flow
 import connector.core.Config
 import connector.kafka.KafkaProducer
 import connector.models.{Tweet, TweetTest}
-import org.apache.spark.streaming.{Duration, Seconds}
+import org.apache.spark.streaming.{Duration, Seconds, StreamingContext}
 import org.apache.spark.streaming.twitter._
 
 import scala.concurrent.Future
@@ -33,15 +35,16 @@ object TwitterStreamingService {
   }
 
   loadTwitterKeys()
+  var ssc: StreamingContext = _
 
   /* Create an input stream that returns tweets received from Twitter. */
   def process(filters: String) = {
 
+    ssc = SparkStreamingContextService.configureStreamingContext()
+
     val duration: Duration = Seconds(3600)
 
     val filtersSeq = filters.split(",")
-
-    val ssc = SparkStreamingContextService.configureStreamingContext()
 
     val producerApp = KafkaProducer(Config.kafkaBrokerHost + Config.kafkaBrokerPort, defaultTopic = Option(Config.kafkaTopic))
 
@@ -56,8 +59,12 @@ object TwitterStreamingService {
 
     // take most popular hashtags
     topHashTags.foreachRDD(rdd => {
-      val topList = rdd.take(10)
+      val topList = rdd.take(5)
       println("\nPopular topics in last %s seconds (%s total):".format(duration, rdd.count()))
+      producerApp.send(
+        Calendar.getInstance().getTime.toString.toCharArray.map(_.toByte),
+        rdd.count.toString.toCharArray.map(_.toByte),
+        Option(Config.kafkaTopic))
       topList.foreach{case (count, tag) =>  producerApp.send(
         tag.toCharArray.map(_.toByte),
         count.toString.toCharArray.map(_.toByte),
@@ -66,6 +73,11 @@ object TwitterStreamingService {
 
     ssc.start()
     ssc.awaitTermination()
+    TextMessage("Stream is terminated...")
+  }
+
+  def stop = {
+    ssc.stop(stopSparkContext = false, stopGracefully = true)
     TextMessage("Stream is terminated...")
   }
 }
